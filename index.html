@@ -3,7 +3,8 @@
     <title>
       Math trainer: multiply and divide skills.
     </title>
-  <link href="styles.css" rel="stylesheet" media="screen" />
+  <link href = "styles.css" rel = "stylesheet" media = "screen" />
+  <script src = "multiply.js" type = "text/javascript"></script>
   </head>
   <body>
     <header>
@@ -31,11 +32,11 @@
           <input type = "radio" name = "mode" value = "2" />Multiply and divide tasks
         </div>
     </header> 
-    <div id = "user_message">    
-    </div>
     <div id = "left">
     </div>
     <div id = "middle">
+      <div id = "user_message">
+      </div>
       <div id = "question">
         Random question:
         <div id = "question_output">
@@ -43,9 +44,9 @@
         </div>
       </div>
       <div id = "answer">
-        <input type = "text" size = "10" />
-        <input type = "button" value = "GO!" /><br /><br />
-        <input type = "button" value = "Start!" />
+        <input id ="user_answer" type = "text" size = "10" />
+        <input id = "go" type = "button" value = "GO!" /><br /><br />
+        <input id = "start" type = "button" value = "Start!" />
       </div>      
     </div>
     <div id = "right">
