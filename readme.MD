@@ -18,6 +18,6 @@ Each correct answer gives you:
 
 Also added options: 
 - Only multiply mode
-- Multiply + devide mode
+- Multiply + divide mode
 
 Any suggestions or questions send to lazyexpert@i.ua
