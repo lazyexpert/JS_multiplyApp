@@ -3,17 +3,18 @@
     <title>
       Math trainer: multiply and divide skills.
     </title>
+  <link href="styles.css" rel="stylesheet" media="screen" />
   </head>
   <body>
     <header>
       <div id = "header_top">
         <div id = "difficulty">
-          Pick your difficulty.
+          Pick your difficulty:
         </div>      
         <div id = "timer">Timer:
         </div>
         <div id = "mode">
-          Choose mode.
+          Choose mode:
         </div>
       </div>
       <div id = "header_bot">
@@ -22,19 +23,23 @@
           <input type = "radio" name = "diff" value = "middle" />Middle +15 seconds<br />
           <input type = "radio" name = "diff" value = "hard" />Hard +10 seconds
         </div>
-        <div id = "user_message">
+        <div id = "timer_value">
+          60
         </div>
         <div id = "mode_pick">
           <input type = "radio" name = "mode" value = "1" />Only multiply tasks<br />
           <input type = "radio" name = "mode" value = "2" />Multiply and divide tasks
         </div>
     </header> 
+    <div id = "user_message">    
+    </div>
     <div id = "left">
     </div>
     <div id = "middle">
       <div id = "question">
         Random question:
         <div id = "question_output">
+          ? x ?
         </div>
       </div>
       <div id = "answer">
@@ -46,6 +51,7 @@
     <div id = "right">
       Your score is: 
       <div id = "score">
+        0
       </div>
     </div>
   </body>
