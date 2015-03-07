@@ -5,9 +5,12 @@ body, div, p, header {
   font-size:12pt;
 }
 
+li{
+  margin-top:10px;
+}
 body{
   padding:50px;
-  width:80%;
+  width:90%;
   margin:auto;
 }
 
@@ -50,8 +53,8 @@ body{
 
 #mode_pick, #right{
   float:right;
-  diplay:inline-block;
-  width:18%;
+  diplay: inline-block;
+  width: 18%;
 }
 
 #question_output, #score, #timer_value{
@@ -63,14 +66,18 @@ body{
 }
 
 #question{
-  margin:20px;
+  margin: 20px;
 }
 
 #user_message{
   text-align: center;
-  padding:20px;
+  padding: 20px;
 }
 
 #right{
-  padding-top:20px;
+  padding-top: 20px;
+}
+
+#wrong{
+  padding-top: 20px;
 }

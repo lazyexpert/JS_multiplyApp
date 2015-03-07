@@ -10,12 +10,16 @@ window.onload = function()
   answerLabel = document.getElementById('user_answer');
   diffRadio = document.getElementsByName('diff');
   modeRadio = document.getElementsByName('mode');
+  wrongList = document.getElementById('wrongList');
 
   userMessage.innerHTML = "Pick difficulty, mode and press Start Button when ready. Good Luck!";
   startButton.onclick = function()
   { 
     if(timer) clearTimeout(timer);
+
     timerValue = 60;
+    score = 0;
+    wrongList.innerHTML = "";
 
     Init();    
     userMessage.style.color = "black";
@@ -25,17 +29,22 @@ window.onload = function()
       timerLabel.innerHTML = timerValue.toString();
       if(timerValue == 0)
       {
-        userMessage = "Defeat! Time is out! Your score is " + score.toString();
-        clearTimeout(timerId);
+        userMessage.innerHTML = "Defeat! Time is out! Your score is " + score.toString();
+        clearTimeout(timer);
       }
     },1000);
+    answerLabel.value = "";
+    answerLabel.focus();
   };  
 
   goButton.onclick = function()
   {
-    userPressedGo();    
+    userPressedGo();        
   };
+};
 
+window.onkeyup = function(e) {
+  if(e.keyCode == 13 && timerValue) userPressedGo(); 
 };
 
 // Cache some DOM-elements
@@ -48,6 +57,7 @@ var modeRadio;
 var questionLabel;
 var answerLabel;
 var userMessage;
+var wrongList;
 
 //some globals
 var correctAnswer;
@@ -79,8 +89,7 @@ var Init = function() {
   
   if(difficulty && mode) {
     correctAnswer = randomQuestion();
-  }  
-  
+  }   
 };
 
 // Generate random question
@@ -97,7 +106,7 @@ var randomQuestion = function() {
       questionLabel.innerHTML = firstNumber.toString() + " * " + secondNumber.toString();
       return result;
     } else {
-      questionLabel.innerHTML = result.toString() + " / " + firstNumber.toString(); 
+      questionLabel.innerHTML = result.toString() + " : " + firstNumber.toString(); 
       return secondNumber;
     }
   }  
@@ -114,8 +123,20 @@ var userPressedGo = function() {
   } else {
     userMessage.style.color = "red";
     userMessage.innerHTML = "Wrong!";
+    alert(questionLabel.innerHTML + " = " + correctAnswer.toString());
+    addWrong(questionLabel.innerHTML, correctAnswer.toString());
   }
   scoreLabel.innerHTML = score.toString();
   correctAnswer = randomQuestion();
+  answerLabel.value = "";
+  answerLabel.focus();
 };
+
+//Adding an element to the "wrong-list"
+var addWrong = function(question, answer) {
+  var node = document.createElement('li');
+  var textnode = document.createTextNode(question + " = " + answer);
+  node.appendChild(textnode);
+  wrongList.appendChild(node);
+}
 
