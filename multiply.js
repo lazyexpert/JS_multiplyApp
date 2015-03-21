@@ -21,7 +21,7 @@ window.onload = function()
     score = 0;
     wrongList.innerHTML = "";
 
-    Init();    
+    if(!Init()) return;    
     userMessage.style.color = "black";
     userMessage.innerHTML = "The game started!";
     timer = setInterval(function() {
@@ -39,7 +39,7 @@ window.onload = function()
 
   goButton.onclick = function()
   {
-    userPressedGo();        
+    if(timer) userPressedGo();        
   };
 };
 
@@ -79,17 +79,24 @@ var Init = function() {
       else if(diffRadio[t].value == "hard") difficulty = 10;
       break;
     }
-  if(!difficulty) alert("Pick difficulty, please");
+  if(!difficulty) {
+    alert("Pick difficulty, please");
+    return false;
+  }
 
   for(var t = 0; t < modeRadio.length; t++)
     if(modeRadio[t].checked) {
       mode = parseInt(modeRadio[t].value);
     }
-  if(!mode) alert("Pick mode, please");
+  if(!mode) {
+    alert("Pick mode, please");
+    return false;
+  }
   
   if(difficulty && mode) {
     correctAnswer = randomQuestion();
   }   
+  return true;
 };
 
 // Generate random question
