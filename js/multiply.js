@@ -1,3 +1,44 @@
+// Angular
+var app = angular.module('multiplyApp', []);
+
+app.controller('OptionsPageController', function($scope) {
+  
+});
+
+app.controller('LangController', function($scope) {
+  $scope.vocabulary = {
+    "current" : "en",
+    "PickDifficultyLabel": {
+      "en" : "Pick difficulty level:",
+      "ua" : "Оберіть рівень складності"
+     },
+    "EasyDifficultyLabel" : {
+      "en" : "Easy +15 seconds",
+      "ua" : "Легкий +15 секунд"
+    },
+    "MiddleDifficultyLabel" : {
+      "en" : "Middle +10 second",
+      "ua" : "Середній +10 секунд"
+    },
+    "HardDifficultyLabel" : {
+      "en" : "Hard +5 second",
+      "ua" : "Важкий +5 секунд"
+    }
+  };
+});
+
+window.onload = function() {
+  // Handle language pick
+  document.getElementById('UaLang').onclick = function() {    
+    vocabulary.current = "ua";
+    console.log("Ukrainian language picked!");
+  };
+
+  document.getElementById('EnLang').onclick = function() {
+    vocabulary.current = "en";
+    console.log("English language picked!");
+  };
+}
 // Cache some DOM-elements
 var startButton;
 var goButton;
@@ -10,7 +51,7 @@ var answerLabel;
 var userMessage;
 var wrongList;
 
-//some globals
+// Some globals (upper scope)
 var correctAnswer;
 var timerValue;
 var timer;
