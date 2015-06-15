@@ -1,3 +1,4 @@
+/* BASIC STRUCTURE */
 body {
   background-image: url("../img/bg.jpg");
   background-repeat:no-repeat;
@@ -9,10 +10,16 @@ img, li, ul, p, span, div{
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  color:inherit;
+}
+
 h3 {
   margin:5px;
 }
 
+/* MENU */
 ul#menu {
   text-align: center;
   list-style-type: none;  
@@ -45,6 +52,7 @@ ul#menu li.active {
   color: #0099FF;
 }
 
+/* LANGUAGE SELECTION */
 #language {  
   text-align: right;  
 }
@@ -57,44 +65,149 @@ ul#menu li.active {
   cursor: pointer;
 }
 
-#OptionsWrapper, #GameWrapper { 
+/* OPTIONS PANEL */
+#OptionsWrapper { 
+  width:70%;
+  margin:auto;
   padding:20px 50px;
   background-color: rgba(0,0,0,0.6);
   color:white;
   border-radius: 25px;
-  border:2px solid white;
+  border:2px solid white;  
+}
+
+#OptionsContainer {  
+  width:60%;
+  margin:auto;
   text-align: center;
 }
 
+#OptionsContainer div{
+  display:inline-block;
+  padding: 30px 20px;
+  width:40%;
+  text-align: left;  
+}
+
+#mode{
+  text-align: left;
+} 
+
+#maxValue p {
+  margin-top: 20px;
+}
+
+div#maxValue {
+  text-align: center;
+}
+
+/* PLAY PANEL */
 #GameWrapper {
+  width:70%;
+  margin:auto;
   overflow: auto;
-}
-
-#OptionsWrapper div {  
-  display: table-cell;
-  width: 30%;
-  padding: 50px;
-}
-
-#user_message, #question, #answer {
-  padding:30px;
+  padding:20px 50px;
+  background-color: rgba(0,0,0,0.6);
+  color:white;
+  border-radius: 25px;
+  border:2px solid white;     
 }
 
 #timer, #timer_value{
   padding:10px;
 }
 
-#gameContainer {
-  width:60%;
-  float:left;
-  display:inline-block;
-}
-
-#wrongAnswers {
-  width:25%;
+#wrongAnswers {  
   display:inline-block;
 }
 
 #wrongAnswers div {
   margin: 20px;
+}
+
+#game{
+  text-align: center;
+}
+
+#rightColumnWrapper {
+  width:20%;
+  float:right;
+}
+
+#gameContainer{  
+  width:70%;
+  display:inline-block;  
+  margin:auto;
+  text-align: center;    
+}
+
+#question {
+  margin-top:30px;
+}
+
+/* HELP PANEL*/
+#HelpWrapper { 
+  width:70%;
+  margin:auto;
+  padding:20px 50px;
+  background-color: rgba(0,0,0,0.6);
+  color:white;
+  border-radius: 25px;
+  border:2px solid white;  
+}
+
+#HelpInnerWrapper {
+  width:50%;
+  margin:auto;
+  padding-bottom: 30px;
+}
+
+#helpEntryHeader ul li:hover{
+  cursor:pointer;
+}
+
+#helpEntryHeader h1{
+  text-align: center;
+}
+#helpEntryHeader ul {
+  margin-left: 50px;
+}
+#helpContent {
+  margin-top: 50px;
+}
+#helpContent h3{
+  text-align:center;
+}
+#helpContent p {
+  margin-top: 15px;
+}
+
+/* CONTACTS PANEL */
+#ContactsWrapper {
+  width:70%;
+  margin:auto;
+  padding:20px 50px;
+  background-color: rgba(0,0,0,0.6);
+  color:white;
+  border-radius: 25px;
+  border:2px solid white;  
+  overflow: auto;
+}
+
+#ContactsInnerWrapper>div {   
+  display:inline-block;
+}
+#photo {
+  float:left; 
+  width:100px;
+  margin:10px;
+}
+#authorDesc {
+  width:75%;
+}
+
+#ContactsWrapper>div {
+  width:600px;
+  margin:auto;
+  padding-top:30px;
 }

@@ -2,7 +2,7 @@
 <html ng-app="multiplyApp"  ng-controller="multiplyAppController"  >
   <head>
     <title>
-      Math trainer: multiply and divide skills.
+      {{ vocabulary.Title[ vocabulary.current ] }}
     </title>
     <link href = "css/styles.css" rel = "stylesheet" media = "screen" />
     <link href='http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,cyrillic,cyrillic-ext' rel='stylesheet' type='text/css'>
@@ -21,92 +21,133 @@
 
     <div id="tabs">
       <ul id="menu">
-        <li ng-class="{active:isSelected(1) }" ng-click="selectTab(1)">Options</li>
-        <li ng-class="{active:isSelected(2) }" ng-click="selectTab(2)">Game</li>
-        <li ng-class="{active:isSelected(3) }" ng-click="selectTab(3)">Help</li>
-        <li ng-class="{active:isSelected(4) }" ng-click="selectTab(4)">Credits</li>        
-        <li ng-class="{active:isSelected(5) }" ng-click="selectTab(5)">Contact</li>        
+        <li ng-class="{active:isSelected(1) }" ng-click="selectTab(1)">{{ vocabulary.MenuItem1[ vocabulary.current ] }}</li>
+        <li ng-class="{active:isSelected(2) }" ng-click="selectTab(2)">{{ vocabulary.MenuItem2[ vocabulary.current ] }}</li>
+        <li ng-class="{active:isSelected(3) }" ng-click="selectTab(3)">{{ vocabulary.MenuItem3[ vocabulary.current ] }}</li>
+        <li ng-class="{active:isSelected(4) }" ng-click="selectTab(4)">{{ vocabulary.MenuItem4[ vocabulary.current ] }}</li>
       </ul>
     </div>
 
     <div id="panels">
       
       <div id="OptionsWrapper" ng-show="isSelected(1)">
+        <div id="OptionsContainer">
+          <div id = "difficulty">
+            <h3>{{ vocabulary.PickDifficultyLabel[ vocabulary.current]  }}</h3>
+            <input type = "radio" name = "difficulty" value = "easy" ng-model="options.difficulty" />{{ vocabulary.EasyDifficultyLabel[ vocabulary.current ] }}<br />
+            <input type = "radio" name = "difficulty" value = "middle"  ng-model="options.difficulty" />{{ vocabulary.MiddleDifficultyLabel[ vocabulary.current ] }}<br />
+            <input type = "radio" name = "difficulty" value = "hard"  ng-model="options.difficulty" />{{ vocabulary.HardDifficultyLabel[ vocabulary.current ] }}<br />  
+            <input type = "radio" name = "difficulty" value = "imba"  ng-model="options.difficulty" />{{ vocabulary.ImbaDifficultyLabel[ vocabulary.current ] }}<br />            
+          </div>
 
-        <div id = "difficulty">
-          <h3>{{ vocabulary.PickDifficultyLabel[ vocabulary.current]  }}</h3>
-          <input type = "radio" name = "diff" value = "easy" />{{ vocabulary.EasyDifficultyLabel[ vocabulary.current ] }}<br />
-          <input type = "radio" name = "diff" value = "middle" />{{ vocabulary.MiddleDifficultyLabel[ vocabulary.current ] }}<br />
-          <input type = "radio" name = "diff" value = "hard" />{{ vocabulary.HardDifficultyLabel[ vocabulary.current ] }}          
+          <div id = "mode">
+            <h3>{{ vocabulary.OperationsTypeLabel[ vocabulary.current ] }}</h3>
+            <input type = "checkbox" name = "mode" value = "add" ng-model = "options.operations.Add"/>{{ vocabulary.OperationsType1[ vocabulary.current ] }}<br />
+            <input type = "checkbox" name = "mode" value = "substract" ng-model = "options.operations.Substract"/>{{ vocabulary.OperationsType2[ vocabulary.current ] }}<br />
+            <input type = "checkbox" name = "mode" value = "multiply" ng-model = "options.operations.Multiply" />{{ vocabulary.OperationsType3[ vocabulary.current ] }}<br />
+            <input type = "checkbox" name = "mode" value = "divide"  ng-model = "options.operations.Divide"/>{{ vocabulary.OperationsType4[ vocabulary.current ] }}<br />
+          </div>          
+         
+          <div id="maxValue">
+            <h3>{{ vocabulary.MaxValue[ vocabulary.current ] }}</h3>
+            <input type= "text" size="5" name="maxValue" value="100" ng-model="options.maxValue"/><br />
+            <p>{{ vocabulary.OnlyMultiplyTableLabel[ vocabulary.current ] }}</p>
+            <input type="checkbox" name="multiplyTable" value="multiplyTable" ng-model="options.onlyMultiplyTable" /> {{ vocabulary.OnlyMultiplyTableDesc[ vocabulary.current ] }}
+          </div>
         </div>
-
-        <div id = "mode">
-          <h3>{{ vocabulary.OperationsTypeLabel[ vocabulary.current ] }}</h3>
-          <input type = "radio" name = "mode" value = "1" />{{ vocabulary.OperationsType1[ vocabulary.current ] }}<br />
-          <input type = "radio" name = "mode" value = "2" />{{ vocabulary.OperationsType2[ vocabulary.current ] }}<br />
-        </div>
-
-        <div id = "deathmatch">
-          <h3>Try deathmatch?</h3>
-          <input type = "radio" name = "deathmatch" value = "yes" />Yes<br />
-          <input type = "radio" name = "deathmatch" value = "no" />No<br />
-        </div>
-
-        <div id="maxValue">
-        <h3>Maximum value</h3>          
-          <input type= "text" size="5" name="maxNum" value="91" />
-        </div>
-        <input type ="button" value="Save" /><br />
-        <h1> ... OR ?</h1>
-        <h3> Try random options:</h3>
-        <input type ="button" value="Try" /><br />
-        
-        <div>
-          
-        </div>
-
       </div>
 
       <div id="GameWrapper" ng-show="isSelected(2)">
-        
-        <div id="gameContainer">
-          <div id = "timer"><strong>Timer:</strong></div>
-          <div id = "timer_value">60</div>
-          <div id = "user_message"></div>
-          <div id = "question"><h3>Question:</h3>
-            <div id = "question_output">? x ?</div>
-          </div>
-          <div id = "answer">
-            <input id ="user_answer" type = "text" size = "10" />
-            <input id = "go" type = "button" value = "GO!" /><br /><br />
-            <input id = "start" type = "button" value = "Start!" />
+        <div id="rightColumnWrapper">
+          <div id = "wrongAnswers">
+             <h3>Your score is: </h3>
+            <div id = "score">
+              0
+            </div>
+            <h3>Wrong answers list:</h3>
+            <div id = "wrongList"></div>
           </div> 
         </div>
 
-        <div id = "wrongAnswers">
-           Your score is: 
-          <div id = "score">
-            0
+                
+        <div id="gameContainer">          
+          <div id="game"> 
+            <div id = "timer">
+              <h3>Timer:</h3>
+              <div id = "timer_value">60</div>
+            </div>
+            <div id = "user_message"></div>
+            <div id = "question"><h3>Question:</h3>
+              <div id = "question_output">? x ?</div>
+            </div>
+            <div id = "answer">
+              <input id ="user_answer" type = "text" size = "10" />
+              <input id = "go" type = "button" value = "Next" /><br /><br />
+              <input id = "start" type = "button" value = "Start!" />
+            </div> 
           </div>
-          Wrong answers list:
-          <div id = "wrongList"></div>
         </div> 
 
-      </div>
+      </div>       
 
-      <div id = "left">
-        Tips:<br /> 
-        <li>Hit Enter when ready to increase your speed.<br /> 
-        <li>Try to play only keyboard.<br />
-        <li>When got the wrong answer don't hurry, the timer is paused untill you press ok.
-      </div>
-      <div id = "middle">
-       
-      </div>
-      <div id = "right">
-       
+      <div id="HelpWrapper" ng-show="isSelected(3)">
+        <div id="HelpInnerWrapper">
+          <div id="helpEntry">
+            <div id="helpEntryHeader">
+              <h1>Help Contents:</h1>
+              <ul>
+                <li ng-click="showHelp(1)">Options Page</li>
+                <li ng-click="showHelp(2)">Master Tips</li>
+              </ul>
+            </div>           
+
+            <div id="helpContent">
+              <div ng-show="isActiveHelp(1)">
+                <h3>Options page help:</h3>
+                <p>The format "+15/-1 sec" means that you recieve + 15 seconds for each correct answer, and loose -1 second for each wrong one.</p>
+                <p>Operations type, i believe, its pretty clear. Just basic math operations.</p>
+                <p>Maximum number value - is a number, within which the tasks will be generated.</p>
+                <p>Only multiply table. This options allows you to generate tasks out from multiply table only. However, you will be albe to pick any math operations you wish, but multiply and divide will be generated in special way to fit multiply table.</p>
+              </div>
+              <div ng-show="isActiveHelp(2)">
+                <h3>Master Tips</h3>
+
+                <p>To increase your speed try using only keyboard. Its rather convinient to do on the keynums, where second enter is placed.</p>
+
+                <p>Use enter to switch to the next question.</p>
+
+                <p>Remeber the time you spend thinking, wont come back, especially if you answer wrong. There might be situations, when you should just pass to another question.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>      
       
-      
+      <div id="ContactsWrapper" ng-show="isSelected(4)">
+        <div id="ContactsInnerWrapper">
+          <div id="photo">
+            <img src="https://avatars1.githubusercontent.com/u/10019972?v=3&s=460" width=100 />
+          </div>
+          <div id="authorDesc">
+            <h3>Author: Hatskalev Oleksandr (Lazyexpert)</h3>
+
+            <p>Feel free to contact me with bugs, suggestions, etc..</p>
+            <p>E-mail: lazyexpert (at) i.ua</p>
+            <p>Github-link: <a href="https://github.com/lazyexpert/SimpleMathTrainer" target="_blank">SimpleMathTrainer</a></p> 
+          </div>          
+        </div>
+
+        <div id="ContactsHire">
+          <h3>Looking for graphic designer:</h3>                    
+          <p>I've made my best trying to make it look nice. But, I believe, you can much more. At the moment, the main goal of our cooperation is to make your portfolio look better with this project, as mine too. But if we can work together, we might find each other useful.</p>
+        </div>
+
+        <div id="cooperation">
+          <h3> Cooperation</h3>
+          <p>I'm sure the ways of cooperation can be found. You should email me with suggestions.</p>
+        </div>
+      </div>
     </div>
   </body>
 </html>

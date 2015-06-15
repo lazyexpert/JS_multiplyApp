@@ -21,6 +21,29 @@ app.controller('multiplyAppController', function ($scope) {
     return $scope.tab === checkTab;
   };
 
+  //Help page implementation
+  $scope.activeHelp = 1;
+
+  $scope.showHelp = function (num) {
+    $scope.activeHelp = num;
+  }
+
+  $scope.isActiveHelp = function (num) {
+    return $scope.activeHelp === num;
+  }
+
+  //Game Options setting to default
+  $scope.options = {
+    "difficulty" : "easy",
+    "operations" : {
+      "Add" : true,
+      "Substract" : true,
+      "Multiply" : true,
+      "Divide" : true
+    },
+    "onlyMultiplyTable" : true,
+    "maxValue" : 100
+  }; 
 });
 
 // Cache some DOM-elements
@@ -64,7 +87,7 @@ window.onload = function()
   wrongList = document.getElementById('wrongList');
   
   GenerateQuestions();
-  userMessage.innerHTML = "Pick difficulty, mode and press Start Button when ready. Good Luck!";
+  userMessage.innerHTML = "If all options are set up, then you may start!";
 
   startButton.onclick = function()
   { 
