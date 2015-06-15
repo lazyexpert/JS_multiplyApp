@@ -1,89 +1,100 @@
-
 body {
   background-image: url("../img/bg.jpg");
   background-repeat:no-repeat;
-  background-size: cover ;
+  background-size: cover ;  
+  font-family: 'Ubuntu', sans-serif;    
 }
-
-body, div, p, header {
+img, li, ul, p, span, div{
+  padding : 0;
   margin: 0;
-  padding: 0; 
-  font-size:12pt;
 }
 
-li{
-  margin-top:10px;
-}
-body{
-  padding:50px;
-  width:90%;
-  margin:auto;
+h3 {
+  margin:5px;
 }
 
-#difficulty{
-  width: 18%;
-  padding: 10px;
-}
-
-#difficulty_pick, #left{
-  display: inline-block;
-  width: 18%;
-}
-
-#timer, #middle{
-  display: inline-block;  
-  width:55%;
-  text-align:center;
-  padding: 10px;
-}
-
-#timer_value{
-  display: inline-block;
-  vertical-align:top;
-  width:55%;
-  text-align:center;
-  padding-left:30px;
-  
-}
-
-#difficulty, #timer, #mode{
-  font-weight: bold;
-  display: inline-block;
-}
-
-#mode{
-  float:right;
-  width:18%;
-  padding: 10px;
-}
-
-#mode_pick, #right{
-  float:right;
-  diplay: inline-block;
-  width: 18%;
-}
-
-#question_output, #score, #timer_value{
-  font-size: 20pt;
-}
-
-#middle{
-  padding-top: 50px;
-}
-
-#question{
-  margin: 20px;
-}
-
-#user_message{
+ul#menu {
   text-align: center;
-  padding: 20px;
+  list-style-type: none;  
 }
 
-#right{
-  padding-top: 20px;
+ul#menu li {   
+  padding:15px;
+  background-color: rgba(0,0,0,0.6);
+  color:white;
+  display:inline-block;  
+  margin-right: -5px;
+  font-size: 20pt;
+  border:2px solid white;  
+  -webkit-border-top-left-radius: 15px;
+  -webkit-border-top-right-radius: 15px;
+  -moz-border-radius-topleft: 15px;
+  -moz-border-radius-topright: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
-#wrong{
-  padding-top: 20px;
+ul#menu li:hover {
+  background-color: yellow;
+  cursor: pointer;
+  color:black;
+}
+
+ul#menu li.active {
+  background-color: rgba(255,255,255,0.7);
+  color: #0099FF;
+}
+
+#language {  
+  text-align: right;  
+}
+
+#language img {
+  border:2px solid white;
+}
+
+#language:hover{
+  cursor: pointer;
+}
+
+#OptionsWrapper, #GameWrapper { 
+  padding:20px 50px;
+  background-color: rgba(0,0,0,0.6);
+  color:white;
+  border-radius: 25px;
+  border:2px solid white;
+  text-align: center;
+}
+
+#GameWrapper {
+  overflow: auto;
+}
+
+#OptionsWrapper div {  
+  display: table-cell;
+  width: 30%;
+  padding: 50px;
+}
+
+#user_message, #question, #answer {
+  padding:30px;
+}
+
+#timer, #timer_value{
+  padding:10px;
+}
+
+#gameContainer {
+  width:60%;
+  float:left;
+  display:inline-block;
+}
+
+#wrongAnswers {
+  width:25%;
+  display:inline-block;
+}
+
+#wrongAnswers div {
+  margin: 20px;
 }

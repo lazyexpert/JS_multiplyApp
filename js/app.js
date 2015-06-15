@@ -1,44 +1,28 @@
 // Angular
 var app = angular.module('multiplyApp', []);
 
-app.controller('OptionsPageController', function($scope) {
+app.controller('multiplyAppController', function ($scope) {
+
+  // Languages control
+  $scope.vocabulary = vocabulary;
+
+  $scope.setLanguage = function(lang) {
+    $scope.vocabulary.current = lang;    
+  };
+
+  //Navigation control
+  $scope.tab = 1;
   
+  $scope.selectTab = function (setTab) {
+    $scope.tab = setTab;    
+  };
+
+  $scope.isSelected = function (checkTab) {
+    return $scope.tab === checkTab;
+  };
+
 });
 
-app.controller('LangController', function($scope) {
-  $scope.vocabulary = {
-    "current" : "en",
-    "PickDifficultyLabel": {
-      "en" : "Pick difficulty level:",
-      "ua" : "Оберіть рівень складності"
-     },
-    "EasyDifficultyLabel" : {
-      "en" : "Easy +15 seconds",
-      "ua" : "Легкий +15 секунд"
-    },
-    "MiddleDifficultyLabel" : {
-      "en" : "Middle +10 second",
-      "ua" : "Середній +10 секунд"
-    },
-    "HardDifficultyLabel" : {
-      "en" : "Hard +5 second",
-      "ua" : "Важкий +5 секунд"
-    }
-  };
-});
-
-window.onload = function() {
-  // Handle language pick
-  document.getElementById('UaLang').onclick = function() {    
-    vocabulary.current = "ua";
-    console.log("Ukrainian language picked!");
-  };
-
-  document.getElementById('EnLang').onclick = function() {
-    vocabulary.current = "en";
-    console.log("English language picked!");
-  };
-}
 // Cache some DOM-elements
 var startButton;
 var goButton;
@@ -62,6 +46,8 @@ var random;
 // Options
 var difficulty = 0; // seconds to add on correct answer ( easy || middle || hard )
 var mode = 0; //Game Mode: 1 - multiply only, 2 - multiply + divide ( 1 || 2 )
+
+
 
 window.onload = function()
 {
@@ -89,7 +75,7 @@ window.onload = function()
     wrongList.innerHTML = "";
     scoreLabel.innerHTML = "";
 
-    if(!Init()) return;    
+    if(!Init()) return;
     userMessage.style.color = "black";
     userMessage.innerHTML = "The game started!";
     timer = setInterval(function() {
