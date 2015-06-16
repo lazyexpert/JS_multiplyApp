@@ -62,10 +62,10 @@
           <div id = "wrongAnswers">
              <h3>Your score is: </h3>
             <div id = "score">
-              0
+              {{ game.score }}
             </div>
             <h3>Wrong answers list:</h3>
-            <div id = "wrongList"></div>
+            <div id = "wrongList">{{ game.wrong }}</div>
           </div> 
         </div>
 
@@ -74,16 +74,16 @@
           <div id="game"> 
             <div id = "timer">
               <h3>Timer:</h3>
-              <div id = "timer_value">60</div>
+              <div>{{ game.timerValue }}</div>
             </div>
-            <div id = "user_message"></div>
+            <div id = "user_message">{{ game.message }}</div>
             <div id = "question"><h3>Question:</h3>
-              <div id = "question_output">? x ?</div>
+              <div id = "question_output">{{ game.question }}</div>
             </div>
             <div id = "answer">
               <input id ="user_answer" type = "text" size = "10" />
-              <input id = "go" type = "button" value = "Next" /><br /><br />
-              <input id = "start" type = "button" value = "Start!" />
+              <input type = "button" value = "Next" ng-click="nextQuestion()" /><br /><br />
+              <input type = "button" value = "Start!" ng-click="startGame()"/>
             </div> 
           </div>
         </div> 
