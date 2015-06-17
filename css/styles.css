@@ -20,12 +20,12 @@ h3 {
 }
 
 /* MENU */
-ul#menu {
+#menu {
   text-align: center;
   list-style-type: none;  
 }
 
-ul#menu li {   
+#menu li {   
   padding:15px;
   background-color: rgba(0,0,0,0.6);
   color:white;
@@ -41,13 +41,13 @@ ul#menu li {
   border-top-right-radius: 15px;
 }
 
-ul#menu li:hover {
+#menu li:hover {
   background-color: yellow;
   cursor: pointer;
   color:black;
 }
 
-ul#menu li.active {
+#menu li.active {
   background-color: rgba(255,255,255,0.7);
   color: #0099FF;
 }
@@ -97,7 +97,7 @@ ul#menu li.active {
   margin-top: 20px;
 }
 
-div#maxValue {
+#maxValue {
   text-align: center;
 }
 
