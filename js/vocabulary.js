@@ -1,5 +1,5 @@
 var vocabulary = {
-  "current" : "en",  
+  "current" : "en",
   "Title" :  {
     "en" : "SimpleMathTrainer: Learn how to count fast and correct!",
     "ua" : "SimpleMathTrainer: Навчись швидко і корректно рахувати!"
@@ -19,11 +19,11 @@ var vocabulary = {
   "MenuItem4" : {
     "en" : "Contact",
     "ua" : "Контакти"
-  },  
+  },
   "PickDifficultyLabel": {
     "en" : "Pick difficulty level:",
     "ua" : "Оберіть рівень складності:"
-  },  
+  },
   "EasyDifficultyLabel" : {
     "en" : "Easy +15 / -1 sec",
     "ua" : "Легкий +15 / -1 сек"
