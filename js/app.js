@@ -8,6 +8,11 @@ app.controller('multiplyAppController', function ($scope, $interval) {
 
   $scope.setLanguage = function(lang) {
     $scope.vocabulary.current = lang;
+    if($scope.game.started === false)
+    {
+      $scope.game.question = $scope.vocabulary.QuestionAtStart[ $scope.vocabulary.current ];
+      $scope.game.message = $scope.vocabulary.GameMessageAtStart[ $scope.vocabulary.current ];
+    }
   };
 
   // Navigation control
@@ -51,15 +56,14 @@ app.controller('multiplyAppController', function ($scope, $interval) {
 
   // Game status
   $scope.game = {
-    "started"    : false,  // Indicates game start
-    "paused"     : false,  // Indicates game pause, used when wrong answer given
+    "started"    : false,  // Indicates game start    
     "timerValue" : 60,
     "score"      : 0,
-    "question"   : "Ready",
+    "question"   : $scope.vocabulary.QuestionAtStart[ $scope.vocabulary.current ],
     "increment"  : 0,
     "decrement"  : 0,
     "answer"     : "",
-    "message"    : "If all options are set up, then you may start!",
+    "message"    : $scope.vocabulary.GameMessageAtStart[ $scope.vocabulary.current ],
     "wrong"      : "", // Dynamic list of wrong elements
     "actions"    : []
   };
@@ -94,7 +98,7 @@ app.controller('multiplyAppController', function ($scope, $interval) {
     $scope.game.score = 0;
     $scope.game.timerValue = 60;
     $scope.game.wrong = "";
-    $scope.game.message = "The game started!";
+    $scope.game.message = $scope.vocabulary.GameStartedMessage[ $scope.vocabulary.current ];
 
     document.getElementById("user_answer").value = "";
     document.getElementById("wrongList").innerHTML = "";
@@ -103,7 +107,7 @@ app.controller('multiplyAppController', function ($scope, $interval) {
       $scope.game.timerValue--;
       if($scope.game.timerValue <= 0 )
       {
-        $scope.game.message = "Defeat! Time is out! Your score is " + $scope.game.score;
+        $scope.game.message = $scope.vocabulary.GameEndedMessage[ $scope.vocabulary.current ] + $scope.game.score;
         $interval.cancel($scope.game.timer);
         $scope.game.started = false;
       }
@@ -125,13 +129,13 @@ app.controller('multiplyAppController', function ($scope, $interval) {
     if(answer == $scope.game.answer)
     {
       $scope.game.timerValue += $scope.game.increment;
-      $scope.game.message = "Correct!";
+      $scope.game.message = $scope.vocabulary.Correct[ $scope.vocabulary.current ];
       $scope.game.score ++;
     }
     else
     {
       $scope.game.timerValue -= $scope.game.decrement;
-      $scope.game.message = "Wrong!";
+      $scope.game.message = $scope.vocabulary.Wrong[ $scope.vocabulary.current ];
       addWrong();
     }
 
@@ -139,9 +143,17 @@ app.controller('multiplyAppController', function ($scope, $interval) {
 
   // Handle Enter press
   window.onkeyup = function(e) {
-    if(e.keyCode == 13 && $scope.game.timerValue) $scope.nextQuestion();
+    if(e.keyCode == 13 && $scope.game.timerValue)
+    {
+      $scope.nextQuestion();
+      $scope.$apply();
+    }
   };
 
+  // Generate random value, min - including, max- not including
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
   // Adding an element to the "wrong-list"
   var addWrong = function() {
     var node = document.createElement('li');
@@ -154,71 +166,70 @@ app.controller('multiplyAppController', function ($scope, $interval) {
   var generateQuestion = function ()
   {
     var actions = [];
-    if($scope.options.operations.Add) actions.push(0);
-    if($scope.options.operations.Substract) actions.push(1);
-    if($scope.options.operations.Multiply) actions.push(2);
-    if($scope.options.operations.Divide) actions.push(3);
+    if($scope.options.operations.Add) actions.push( generateAdd );
+    if($scope.options.operations.Substract) actions.push( generateSubstract );
+    if($scope.options.operations.Multiply) actions.push( generateMultiply );
+    if($scope.options.operations.Divide) actions.push( generateDivide );
     
 
-    var random = Math.floor(Math.random() * (actions.length));
-    switch(random)
-    {
-      case 0:
-        generateAdd();
-        break;
-      case 1:
-        generateSubstract();
-        break;
-      case 2:
-        generateMultiply();
-        break;
-      case 3:
-        generateDivide();
-        break;
-      default:
-        return;
-    }
-
+    var random = getRandomInt(0, actions.length);
+    actions[random]();
   };
+
 
   function generateAdd()
   {
-    var x = Math.floor( Math.random() * $scope.options.maxValue) + 1;
-    var y = Math.floor( Math.random() * ($scope.options.maxValue - x)) + 1;
+    var x = getRandomInt(1, $scope.options.maxValue);
+    var y = getRandomInt(1, $scope.options.maxValue - x);
     $scope.game.question = x + " + " + y;
     $scope.game.answer = x+y;
   }
 
   function generateSubstract()
   {
-    var x = Math.floor( Math.random() * $scope.options.maxValue) + 1;
-    var y = Math.floor( Math.random() * (x))+ 1;
+    var x = getRandomInt(1, $scope.options.maxValue);
+    var y = getRandomInt(1, x);
     $scope.game.question = x + " - " + y;
     $scope.game.answer = x-y;
   }
 
   function generateMultiply()
   {
+    var x,y;
     if($scope.options.onlyMultiplyTable)
     {
-      var x = Math.floor(Math.random() * 7) + 2;
-      var y = Math.floor(Math.random() * 7) + 2;
-      $scope.game.question = x + " * " + y ;
-      $scope.game.answer = x*y;
+      x = getRandomInt(2, 10);
+      y = getRandomInt(2, 10);
     }
+    else {
+      x = getRandomInt(2, (Number)($scope.options.maxValue/2));
+      y = getRandomInt(2, (Number)($scope.options.maxValue/5));
+      
+      while( (x * y) > $scope.options.maxValue)
+        y = getRandomInt(2, 10);
+      
+    }
+    $scope.game.question = x + " * " + y ;
+    $scope.game.answer = x*y;
   }
 
   function generateDivide()
   {
+    var x,y;
     if($scope.options.onlyMultiplyTable)
     {
-      var x = Math.floor(Math.random() * 7) + 2;
-      var y = Math.floor(Math.random() * 7) + 2;
-      var res = x * y;
-      $scope.game.question = res + " : " + x;
-      $scope.game.answer = y;
+      x = getRandomInt(2, 10);
+      y = getRandomInt(2, 10);
+    } else {
+      x = getRandomInt(2, (Number)($scope.options.maxValue/2));
+      y = getRandomInt(2, (Number)($scope.options.maxValue/5));
+      
+      while( (x * y) > $scope.options.maxValue)
+        y = getRandomInt(2, 10);
     }
+
+    var res = x * y;
+    $scope.game.question = res + " : " + x;
+    $scope.game.answer = y;
   }
-
 });
-

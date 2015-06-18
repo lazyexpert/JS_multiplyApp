@@ -60,11 +60,11 @@
       <div id="GameWrapper" ng-show="isSelected(2)">
         <div id="rightColumnWrapper">
           <div id = "wrongAnswers">
-             <h3>Your score is: </h3>
+             <h3>{{ vocabulary.ScoreLabel[ vocabulary.current ] }}: </h3>
             <div id = "score">
               {{ game.score }}
             </div>
-            <h3>Wrong answers list:</h3>
+            <h3>{{ vocabulary.WrongAnswersLabel[ vocabulary.current ] }}:</h3>
             <div id = "wrongList"></div>
           </div> 
         </div>
@@ -73,11 +73,11 @@
         <div id="gameContainer">          
           <div id="game"> 
             <div id = "timer">
-              <h3>Timer:</h3>
+              <h3>{{ vocabulary.Timer[ vocabulary.current ] }}:</h3>
               <div>{{ game.timerValue }}</div>
             </div>
             <div id = "user_message">{{ game.message }}</div>
-            <div id = "question"><h3>Question:</h3>
+            <div id = "question"><h3>{{ vocabulary.Question[ vocabulary.current ] }}:</h3>
               <div id = "question_output">{{ game.question }} ?</div>
             </div>
             <div id = "answer">
@@ -94,29 +94,29 @@
         <div id="HelpInnerWrapper">
           <div id="helpEntry">
             <div id="helpEntryHeader">
-              <h1>Help Contents:</h1>
+              <h1>{{ vocabulary.HelpContentsLabel[ vocabulary.current ] }}:</h1>
               <ul>
-                <li ng-click="showHelp(1)">Options Page</li>
-                <li ng-click="showHelp(2)">Master Tips</li>
+                <li ng-click="showHelp(1)">{{ vocabulary.OptionsPageLabel[ vocabulary.current ] }}</li>
+                <li ng-click="showHelp(2)">{{ vocabulary.MasterTipsLabel[ vocabulary.current ] }}</li>
               </ul>
             </div>           
 
             <div id="helpContent">
               <div ng-show="isActiveHelp(1)">
-                <h3>Options page help:</h3>
-                <p>The format "+15/-1 sec" means that you recieve + 15 seconds for each correct answer, and loose -1 second for each wrong one.</p>
-                <p>Operations type, i believe, its pretty clear. Just basic math operations.</p>
-                <p>Maximum number value - is a number, within which the tasks will be generated.</p>
-                <p>Only multiply table. This options allows you to generate tasks out from multiply table only. However, you will be albe to pick any math operations you wish, but multiply and divide will be generated in special way to fit multiply table.</p>
+                <h3>{{ vocabulary.OptionsPageHelpTitle[ vocabulary.current ] }}:</h3>
+                <p>{{ vocabulary.OptionsHelpContentPart1[ vocabulary.current ] }}</p>
+                <p>{{ vocabulary.OptionsHelpContentPart2[ vocabulary.current ] }}</p>
+                <p>{{ vocabulary.OptionsHelpContentPart3[ vocabulary.current ] }}</p>
+                <p>{{ vocabulary.OptionsHelpContentPart4[ vocabulary.current ] }}</p>
               </div>
               <div ng-show="isActiveHelp(2)">
-                <h3>Master Tips</h3>
+                <h3>{{ vocabulary.MasterTipsTitle[ vocabulary.current ] }}</h3>
 
-                <p>To increase your speed try using only keyboard. Its rather convinient to do on the keynums, where second enter is placed.</p>
+                <p>{{ vocabulary.MasterTipsContentPart1[ vocabulary.current ] }}</p>
 
-                <p>Use enter to switch to the next question.</p>
+                <p>{{ vocabulary.MasterTipsContentPart2[ vocabulary.current ] }}</p>
 
-                <p>Remeber the time you spend thinking, wont come back, especially if you answer wrong. There might be situations, when you should just pass to another question.</p>
+                <p>{{ vocabulary.MasterTipsContentPart3[ vocabulary.current ] }}</p>
               </div>
             </div>
 
@@ -130,22 +130,22 @@
             <img src="https://avatars1.githubusercontent.com/u/10019972?v=3&s=460" width=100 />
           </div>
           <div id="authorDesc">
-            <h3>Author: Hatskalev Oleksandr (Lazyexpert)</h3>
+            <h3>{{ vocabulary.Author[ vocabulary.current ] }}</h3>
 
-            <p>Feel free to contact me with bugs, suggestions, etc..</p>
-            <p>E-mail: lazyexpert (at) i.ua</p>
-            <p>Github-link: <a href="https://github.com/lazyexpert/SimpleMathTrainer" target="_blank">SimpleMathTrainer</a></p> 
+            <p>{{ vocabulary.AuthorMessage[ vocabulary.current ] }}</p>
+            <p>{{ vocabulary.Email[ vocabulary.current ] }}: <noindex><nofollow>lazyexpert@i.ua</noindex></nofollow></p>
+            <p>{{ vocabulary.GithubLink[ vocabulary.current ] }}: <a href="https://github.com/lazyexpert/SimpleMathTrainer" target="_blank">SimpleMathTrainer</a></p> 
           </div>          
         </div>
 
         <div id="ContactsHire">
-          <h3>Looking for graphic designer:</h3>                    
-          <p>I've made my best trying to make it look nice. But, I believe, you can much more. At the moment, the main goal of our cooperation is to make your portfolio look better with this project, as mine too. But if we can work together, we might find each other useful.</p>
+          <h3>{{ vocabulary.LookForDesignerTitle[ vocabulary.current ] }}:</h3>                    
+          <p>{{ vocabulary.LookForDesignerContent[ vocabulary.current ] }}</p>
         </div>
 
         <div id="cooperation">
-          <h3> Cooperation</h3>
-          <p>I'm sure the ways of cooperation can be found. You should email me with suggestions.</p>
+          <h3>{{ vocabulary.CooperationTitle[ vocabulary.current ] }}</h3>
+          <p>{{ vocabulary.CooperationContent[ vocabulary.current ] }}</p>
         </div>
       </div>
     </div>

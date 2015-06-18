@@ -145,6 +145,12 @@ h3 {
   margin-top:30px;
 }
 
+#question_output {
+  font-size: 25pt;
+  font-weight: bold;
+  margin:5px;
+}
+
 /* HELP PANEL*/
 #HelpWrapper { 
   width:70%;
