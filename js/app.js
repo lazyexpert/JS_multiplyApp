@@ -12,7 +12,7 @@ app.controller('multiplyAppController', function ($scope, $interval) {
 		if($scope.options.operations.Add) actions.push( this.nextAdd );
 		if($scope.options.operations.Substract) actions.push( this.nextSubstract );
 		if($scope.options.operations.Multiply) actions.push( this.nextMultiply );
-		if($scope.options.operations.Divide) actions.push( this.nextDivide );	
+		if($scope.options.operations.Divide) actions.push( this.nextDivide );
 
 		var random = getRandomInt(0, actions.length);
 		actions[random]();
@@ -38,7 +38,8 @@ app.controller('multiplyAppController', function ($scope, $interval) {
 		}
 		else {
       x = getRandomInt(2, (Number)($scope.options.maxValue/2));
-      y = (x == $scope.options.maxValue/2) ? getRandomInt(2, Math.floor($scope.options.maxValue/x)) : getRandomInt(1, Math.floor($scope.options.maxValue/x));
+      y = (x == $scope.options.maxValue/2) ? getRandomInt(2, Math.floor($scope.options.maxValue/x)) :
+        getRandomInt(1, Math.floor($scope.options.maxValue/x));
 		}
 		$scope.game.question = x + " * " + y ;
 		$scope.game.answer = x*y;
@@ -51,7 +52,8 @@ app.controller('multiplyAppController', function ($scope, $interval) {
       y = getRandomInt(2, 10);
 		} else {
       x = getRandomInt(2, (Number)($scope.options.maxValue/2));
-      y = (x == $scope.options.maxValue/2) ? getRandomInt(2, Math.floor($scope.options.maxValue/x)) : getRandomInt(1, Math.floor($scope.options.maxValue/x));
+      y = (x == $scope.options.maxValue/2) ? getRandomInt(2, Math.floor($scope.options.maxValue/x)) :
+        getRandomInt(1, Math.floor($scope.options.maxValue/x));
 		}
 
 		var res = x * y;
