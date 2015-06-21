@@ -3,6 +3,65 @@ var app = angular.module('multiplyApp', []);
 
 app.controller('multiplyAppController', function ($scope, $interval) {
 
+  // Generator class, encapsulate all generating logic
+  function Generator () {}
+  
+  Generator.prototype = {
+	nextQuestion: function() {
+		var actions = [];
+		if($scope.options.operations.Add) actions.push( this.nextAdd );
+		if($scope.options.operations.Substract) actions.push( this.nextSubstract );
+		if($scope.options.operations.Multiply) actions.push( this.nextMultiply );
+		if($scope.options.operations.Divide) actions.push( this.nextDivide );	
+
+		var random = getRandomInt(0, actions.length);
+		actions[random]();
+	},
+	nextAdd: function() {
+		var x = getRandomInt(1, $scope.options.maxValue);
+		var y = getRandomInt(1, $scope.options.maxValue - x);
+		$scope.game.question = x + " + " + y;
+		$scope.game.answer = x+y;
+	},
+	nextSubstract: function() {
+		var x = getRandomInt(1, $scope.options.maxValue);
+		var y = getRandomInt(1, x);
+		$scope.game.question = x + " - " + y;
+		$scope.game.answer = x-y;
+	},
+	nextMultiply: function() {
+		var x,y;
+		if($scope.options.onlyMultiplyTable)
+		{
+      x = getRandomInt(2, 10);
+      y = getRandomInt(2, 10);
+		}
+		else {
+      x = getRandomInt(2, (Number)($scope.options.maxValue/2));
+      y = (x == $scope.options.maxValue/2) ? getRandomInt(2, Math.floor($scope.options.maxValue/x)) : getRandomInt(1, Math.floor($scope.options.maxValue/x));
+		}
+		$scope.game.question = x + " * " + y ;
+		$scope.game.answer = x*y;
+	},
+	nextDivide: function() {
+    var x,y;
+		if($scope.options.onlyMultiplyTable)
+		{
+      x = getRandomInt(2, 10);
+      y = getRandomInt(2, 10);
+		} else {
+      x = getRandomInt(2, (Number)($scope.options.maxValue/2));
+      y = (x == $scope.options.maxValue/2) ? getRandomInt(2, Math.floor($scope.options.maxValue/x)) : getRandomInt(1, Math.floor($scope.options.maxValue/x));
+		}
+
+		var res = x * y;
+		$scope.game.question = res + " : " + x;
+		$scope.game.answer = y;
+    }
+  };
+
+  $scope.generator = new Generator();
+  
   // Languages control
   $scope.vocabulary = vocabulary;
 
@@ -112,13 +171,13 @@ app.controller('multiplyAppController', function ($scope, $interval) {
         $scope.game.started = false;
       }
     }, 1000);
-    generateQuestion();
+    $scope.generator.nextQuestion();
   };
 
   // Hanle Go button click, check user answer modify score, generate new question
   $scope.nextQuestion = function() {
     checkAnswer();
-    generateQuestion();
+    $scope.generator.nextQuestion();
     document.getElementById("user_answer").value = "";
   };
 
@@ -146,6 +205,7 @@ app.controller('multiplyAppController', function ($scope, $interval) {
     if(e.keyCode == 13 && $scope.game.timerValue)
     {
       $scope.nextQuestion();
+      document.getElementById("user_answer").value = "";
       $scope.$apply();
     }
   };
@@ -154,6 +214,7 @@ app.controller('multiplyAppController', function ($scope, $interval) {
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
+
   // Adding an element to the "wrong-list"
   var addWrong = function() {
     var node = document.createElement('li');
@@ -161,75 +222,4 @@ app.controller('multiplyAppController', function ($scope, $interval) {
     node.appendChild(textnode);
     wrongList.appendChild(node);
   };
-
-  // Serving main random logic
-  var generateQuestion = function ()
-  {
-    var actions = [];
-    if($scope.options.operations.Add) actions.push( generateAdd );
-    if($scope.options.operations.Substract) actions.push( generateSubstract );
-    if($scope.options.operations.Multiply) actions.push( generateMultiply );
-    if($scope.options.operations.Divide) actions.push( generateDivide );
-    
-
-    var random = getRandomInt(0, actions.length);
-    actions[random]();
-  };
-
-
-  function generateAdd()
-  {
-    var x = getRandomInt(1, $scope.options.maxValue);
-    var y = getRandomInt(1, $scope.options.maxValue - x);
-    $scope.game.question = x + " + " + y;
-    $scope.game.answer = x+y;
-  }
-
-  function generateSubstract()
-  {
-    var x = getRandomInt(1, $scope.options.maxValue);
-    var y = getRandomInt(1, x);
-    $scope.game.question = x + " - " + y;
-    $scope.game.answer = x-y;
-  }
-
-  function generateMultiply()
-  {
-    var x,y;
-    if($scope.options.onlyMultiplyTable)
-    {
-      x = getRandomInt(2, 10);
-      y = getRandomInt(2, 10);
-    }
-    else {
-      x = getRandomInt(2, (Number)($scope.options.maxValue/2));
-      y = getRandomInt(2, (Number)($scope.options.maxValue/5));
-      
-      while( (x * y) > $scope.options.maxValue)
-        y = getRandomInt(2, 10);
-      
-    }
-    $scope.game.question = x + " * " + y ;
-    $scope.game.answer = x*y;
-  }
-
-  function generateDivide()
-  {
-    var x,y;
-    if($scope.options.onlyMultiplyTable)
-    {
-      x = getRandomInt(2, 10);
-      y = getRandomInt(2, 10);
-    } else {
-      x = getRandomInt(2, (Number)($scope.options.maxValue/2));
-      y = getRandomInt(2, (Number)($scope.options.maxValue/5));
-      
-      while( (x * y) > $scope.options.maxValue)
-        y = getRandomInt(2, 10);
-    }
-
-    var res = x * y;
-    $scope.game.question = res + " : " + x;
-    $scope.game.answer = y;
-  }
 });
